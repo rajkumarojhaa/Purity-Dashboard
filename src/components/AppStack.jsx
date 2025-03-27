@@ -174,14 +174,14 @@ const appStackData = [
 
 const AppStack = () => {
   return (
-    <div className="w-[1920px] mx-auto p-10 mt-20 h-[1129px] bg-zinc-100">
+    <div className="w-full px-10 py-10 sm:mt-20 mt-15 h-[1129px] max-h-full bg-zinc-100">
       {/* Header */}
       <div className="w-52 h-6 justify-start text-gray-700 text-xl font-bold font-['Helvetica'] leading-7">
         App stack
       </div>
 
       {/* Card Grid */}
-      <div className="grid grid-cols-6 gap-6 mt-6">
+      <div className="grid sm:grid-cols-4 grid-cols-1 gap-6 mt-6 w-full h-28">
         {appStackData.map((app, index) => (
           <div
             key={index}
