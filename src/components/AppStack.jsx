@@ -174,67 +174,60 @@ const appStackData = [
 
 const AppStack = () => {
   return (
-    <div className="w-full px-10 py-10 sm:mt-20 mt-15 h-[1129px] max-h-full bg-zinc-100">
-      {/* Header */}
-      <div className="w-52 h-6 justify-start text-gray-700 text-xl font-bold font-['Helvetica'] leading-7">
-        App stack
-      </div>
+    <div className="px-6 sm:px-8 py-10 sm:mt-20 mt-10 bg-zinc-100 min-h-screen w-full">
+  {/* Header */}
+  <div className="w-52 h-6 text-gray-700 text-xl font-bold font-['Helvetica'] leading-7">
+    App stack
+  </div>
 
-      {/* Card Grid */}
-      <div className="grid sm:grid-cols-4 grid-cols-1 gap-6 mt-6 w-full h-28">
-        {appStackData.map((app, index) => (
-          <div
-            key={index}
-            className="relative  w-72 h-28 bg-zinc-100 rounded-lg border border-slate-400 p-4 flex items-center hover:shadow-lg transition"
-          >
-            {/* Subscribed Tag */}
-            <div className="absolute top-2 right-2 px-2 py-0.5 bg-gradient-to-r from-teal-300 to-sky-400 rounded-[50px] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5">
-              <div className="text-center text-zinc-100 text-[10px] font-normal font-['Poppins'] capitalize leading-none">
-                Subscribed
-              </div>
-            </div>
-
-            {/* Icon */}
-            <img src={app.icon} alt={app.title} className="w-12 h-12 mr-4" />
-
-            {/* Details */}
-            <div className="flex-1 ">
-              {/* App Title */}
-              <div className="justify-start text-gray-700 text-sm font-medium font-['Poppins'] capitalize leading-tight">
-                {app.title}
-              </div>
-
-              {/* Version */}
-              <div className="justify-start text-gray-700 text-xs font-light font-['Poppins'] capitalize leading-none">
-                Version: {app.version}
-              </div>
-
-              {/* Status */}
-              <div className="flex items-center text-xs font-light font-['Poppins']  capitalize leading-none w-1.5 h-1.5  rounded-full mt-1.5">
-                {/* Status Icon */}
-                <img
-                  src={
-                    app.status === "Active"
-                      ? "/icons/Ellipse green.svg"
-                      : "/icons/Ellipse 74.svg"
-                  }
-                  alt={app.status}
-                  className="w-3 h-3 mr-1"
-                />
-                {/* Status Text */}
-                <span
-                  className={
-                    app.status === "Active" ? "text-green-600" : "text-red-600"
-                  }
-                >
-                  {app.status}
-                </span>
-              </div>
-            </div>
+  {/* Card Grid */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-6 w-full pb-20 sm:pb-10">
+    {appStackData.map((app, index) => (
+      <div
+        key={index}
+        className="relative bg-zinc-100 rounded-lg border border-slate-400 w-full sm:w-72 h-auto sm:h-28   p-4 flex items-center hover:shadow-lg transition"
+      >
+        {/* Subscribed Tag */}
+        <div className="absolute top-2 right-2 px-2 py-0.5 bg-gradient-to-r from-teal-300 to-sky-400 rounded-[50px] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.25)] inline-flex justify-center items-center gap-2.5">
+          <div className="text-center text-zinc-100 text-[10px] font-normal font-['Poppins'] capitalize leading-none">
+            Subscribed
           </div>
-        ))}
+        </div>
+
+        {/* Icon */}
+        <img src={app.icon} alt={app.title} className="w-12 h-12 mr-4" />
+
+        {/* Details */}
+        <div className="flex-1">
+          {/* App Title */}
+          <div className="text-gray-700 text-sm font-medium font-['Poppins'] capitalize leading-tight">
+            {app.title}
+          </div>
+
+          {/* Version */}
+          <div className="text-gray-700 text-xs font-light font-['Poppins'] capitalize leading-none">
+            Version: {app.version}
+          </div>
+
+          {/* Status */}
+          <div className="flex items-center text-xs font-light font-['Poppins'] capitalize leading-none mt-1.5">
+            {/* Status Icon */}
+            <img
+              src={app.status === "Active" ? "/icons/Ellipse green.svg" : "/icons/Ellipse 74.svg"}
+              alt={app.status}
+              className="w-1.5 h-1.5 rounded-full mr-1"
+            />
+            {/* Status Text */}
+            <span className={app.status === "Active" ? "text-green-600" : "text-red-600"}>
+              {app.status}
+            </span>
+          </div>
+        </div>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+
   );
 };
 

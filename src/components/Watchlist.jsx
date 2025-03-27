@@ -4,7 +4,7 @@ const Watchlist = () => {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
   return (
-    <main className="p-4 sm:p-6 md:p-10 lg:p-10 w-full min-h-screen overflow-hidden bg-zinc-100 ">
+    <main className="p-4 sm:p-6 md:p-10 lg:p-10 w-full min-h-screen overflow-hidden bg-zinc-100 pb-20 sm:pb-10">
       <div className="flex justify-between  items-center mb-4 mt-20">
         <div className="flex flex-col  gap-3">
           <div className="sm:w-32 sm:h-6 w-15 h-4 justify-start text-gray-700 text-lg font-bold font-['Helvetica'] leading-relaxed">
@@ -385,8 +385,8 @@ const Watchlist = () => {
         {/* Add Task Modal code start here*/}
 
         {isAddTaskModalOpen && (
-          <div className="fixed inset-0 flex items-center justify-center z-50   sm:p-6">
-            <div className="w-full max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-neutral-200 rounded-2xl p-4 sm:p-6 relative shadow-lg border border-gray-200 overflow-y-auto max-h-[90vh]">
+          <div className="fixed inset-0 flex items-center justify-center z-50 sm:p-6">
+            <div className="w-full max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-neutral-200 rounded-2xl p-4 sm:p-6 relative shadow-lg border border-gray-200 overflow-y-auto max-h-[90vh] ">
               {/* Close button */}
               <button
                 className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700"

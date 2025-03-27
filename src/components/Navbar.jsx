@@ -16,7 +16,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="w-full xl:w-[1920px] max-w-full absolute h-16 md:h-20 lg:h-24 bg-zinc-100 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex items-center px-4 md:px-6 lg:px-8 justify-between">
+    <div className="w-full xl:w-[1920px] max-w-full absolute h-16 md:h-20 lg:h-24 bg-zinc-100 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex items-center px-4 md:px-6 lg:px-8 justify-between ">
       {/* Left Section - Logo & Navigation */}
       <div className="flex items-center gap-2 md:gap-3 lg:gap-4">
         <img
