@@ -32,9 +32,9 @@ const Watchlist = () => {
           </div>
         </div>
       </div>
-      {/* Search & Filters */}
+      
       <div className="flex space-x-2">
-        {/* Search Button */}
+        
         <div className="w-48 h-12 bg-zinc-300 rounded-3xl flex items-center px-4">
           <img className="w-6 h-6 relative mr-2 ml-2" src="/icons/search.svg" />
           <div className="w-4 h-4 left-[3px] top-[3px] absolute" />
@@ -43,7 +43,7 @@ const Watchlist = () => {
           </div>
         </div>
 
-        {/* Site Button */}
+        {/* Site Button is here*/}
         <div className="w-44 h-12 bg-zinc-300 rounded-3xl flex items-center px-4">
           <div className="w-6 h-6 relative mr-2 ml-2">
             <img
@@ -62,7 +62,7 @@ const Watchlist = () => {
           </div>
         </div>
 
-        {/* Camera Button */}
+        {/* Camera Button is here*/}
         <div className="w-44 h-12 bg-zinc-300 rounded-3xl flex items-center px-4">
           <div className="w-6 h-6 relative mr-2 ml-2">
             <img
@@ -81,7 +81,7 @@ const Watchlist = () => {
           </div>
         </div>
 
-        {/* Office Button */}
+        {/* Office Button is here*/}
         <div className="w-44 h-12 bg-zinc-300 rounded-3xl flex items-center px-4">
           <div className="w-6 h-6 relative mr-2">
             <img
@@ -100,7 +100,7 @@ const Watchlist = () => {
           </div>
         </div>
       </div>
-      {/* Alerts Section */}
+      {/* Alerts Section start hete*/}
       <div className="mt-4">
         <div className="w-48 h-6 justify-start">
           <span class="text-gray-700 text-lg font-bold font-['Poppins'] leading-relaxed">
@@ -127,11 +127,11 @@ const Watchlist = () => {
           </div>
         </div>
       </div>
-      {/* Alert Items */}
+      {/* Alert Items import here*/}
       <div className="space-y-4 p-10  w-[1708px] h-[1582px] bg-neutral-200 rounded-[30px]">
         <AlertItem />
 
-        {/* Expanded Alert */}
+        {/* Expanded Alert is here*/}
         <div className=" overflow-hidden">
           <div className="grid grid-cols-2 gap-4 p-4">
             <div className="relative">
@@ -492,7 +492,7 @@ const Watchlist = () => {
             <div className="mt-6 flex justify-between items-center px-4">
               <button
                 className="w-52 h-12 px-4 py-2 rounded-md flex items-center space-x-2 bg-white border border-black border-opacity-50"
-                onClick={() => setIsShareModalOpen(false)}
+                onClick={() => setIsAddTaskModalOpen(false)}
               >
                 <img className="w-5 h-5" src="/icons/cancel.svg" alt="Cancel" />
                 <span className="text-gray-700 text-sm font-normal font-['Poppins']">
@@ -553,11 +553,11 @@ function AlertItem() {
   );
 }
 
-function FilterButton({ icon, label }) {
-  return (
-    <button className="bg-gray-100 text-gray-700 rounded-md px-3 py-1.5 flex items-center text-sm">
-      {icon}
-      <span className="ml-1">{label}</span>
-    </button>
-  );
-}
+// function FilterButton({ icon, label }) {
+//   return (
+//     <button className="bg-gray-100 text-gray-700 rounded-md px-3 py-1.5 flex items-center text-sm">
+//       {icon}
+//       <span className="ml-1">{label}</span>
+//     </button>
+//   );
+// }
