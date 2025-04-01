@@ -5,26 +5,28 @@ const Watchlist = () => {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
   return (
     <main className="p-4 sm:p-6 md:p-10 lg:p-10 w-full min-h-screen overflow-hidden bg-zinc-100 pb-20 sm:pb-10">
-      <div className="flex justify-between  items-center mb-4 mt-20">
-        <div className="flex flex-col  gap-3">
-          <div className="sm:w-32 sm:h-6 w-15 h-4 justify-start text-gray-700 text-lg font-bold font-['Helvetica'] leading-relaxed">
+      <div className="flex justify-between items-center mb-4 sm:mt-20 mt-15">
+        {/* Left Side: Watchlist and Description */}
+        <div className="flex flex-col">
+          <div className="text-gray-700 text-lg font-bold font-['Helvetica'] leading-relaxed">
             Watchlist
           </div>
-          <div className=" w-full break-words text-gray-700 text-opacity-50 text-xs sm:text-sm md:text-base font-medium font-['Poppins'] capitalize leading-tight sm:leading-snug">
+          <div className="text-gray-700 text-opacity-50 text-xs sm:text-sm md:text-base font-medium font-['Poppins'] capitalize leading-tight sm:leading-snug">
             Review all your notifications and alerts, leverage insights and
             analytics.
           </div>
         </div>
 
-        <div className="flex-column space-x-1 space-y-2 mt-5">
-          <div className="px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex justify-center items-center gap-2.5  overflow-hidden">
-            <img className="w-4 h-4 " src="/icons/replay.svg" />
+        {/* Right Side: Buttons in a row */}
+        <div className="flex items-center space-x-2">
+          <div className="px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex justify-center items-center gap-2 overflow-hidden">
+            <img className="w-4 h-4" src="/icons/replay.svg" />
             <div className="text-right justify-start text-white sm:text-base text-xs font-medium font-['Poppins'] leading-snug">
               Refresh
             </div>
           </div>
 
-          <div className="px-4 py-2 bg-zinc-300 inline-flex justify-center items-center gap-2.5 overflow-hidden">
+          <div className="px-4 py-2 bg-zinc-300 inline-flex justify-center items-center gap-2 overflow-hidden whitespace-nowrap">
             <img className="w-4 h-4 bg-zinc-300" src="/icons/visibility.svg" />
             <div className="text-right justify-start text-stone-900 sm:text-base text-xs font-medium font-['Poppins'] leading-snug">
               Read all
@@ -34,11 +36,11 @@ const Watchlist = () => {
       </div>
 
       {/* Second section start here */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4 lg:justify-start lg:w-fit sm:ml-0 ml-5">
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-3 justify-start lg:w-fit ">
         {/* Search Alerts */}
-        <div className="lg:w-40 lg:h-10 w-30 h-9 bg-zinc-300 rounded-3xl flex items-center px-2 sm:px-4 gap-1">
+        <div className="lg:w-44 lg:h-10 w-28 md:w-40 h-9 bg-zinc-300 rounded-3xl flex items-center px-2 sm:px-4 gap-1">
           <img
-            className="sm:w-6 sm:h-6 w-4 h-4 relative"
+            className="sm:w-5 sm:h-5 w-4 h-4 relative"
             src="/icons/search.svg"
           />
           <div className="justify-start text-gray-700 sm:text-sm text-xs font-medium font-['Poppins'] capitalize leading-tight">
@@ -47,52 +49,75 @@ const Watchlist = () => {
         </div>
 
         {/* Site Button */}
-        <div className="lg:w-40 lg:h-10 w-30 h-9 bg-zinc-300 rounded-3xl flex items-center px-2 sm:px-4 gap-1">
-          <img
-            className="sm:w-6 sm:h-6 w-4 h-4 relative"
-            src="/icons/location_on.svg"
-          />
-          <div className="justify-start text-gray-700 sm:text-sm text-xs font-medium font-['Poppins'] capitalize leading-tight">
-            Site
-          </div>
-          <div className="w-6 h-6 relative">
+        <div className="lg:w-40 lg:h-10 w-28 md:w-40 h-9 bg-zinc-300 rounded-3xl flex items-center px-2 sm:px-4 gap-x-2 relative">
+          {/* Location Icon */}
+          <img className="sm:w-6 sm:h-6 w-4 h-4" src="/icons/location_on.svg" />
+
+          {/* Dropdown Container */}
+          <div className="relative flex-1">
+            <select
+              className="w-full text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer pr-6 font-['Poppins'] capitalize"
+              defaultValue="Site"
+            >
+              <option value="site">Site</option>
+              <option value="site2">Site 2</option>
+              <option value="site3">Site 3</option>
+            </select>
+
+            {/* Dropdown Icon */}
             <img
-              className="w-6 h-6 left-10 relative"
+              className="w-4 h-4 absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none"
               src="/icons/arrow_drop_down.svg"
             />
           </div>
         </div>
 
         {/* Camera Button */}
-        <div className="lg:w-40 lg:h-10 w-30 h-9 bg-zinc-300 rounded-3xl flex items-center px-2 sm:px-4 gap-1">
+        <div className="lg:w-40 lg:h-10 w-28 md:w-40 h-9 bg-zinc-300 rounded-3xl flex items-center px-2 sm:px-4 gap-x-2 relative">
+          {/* Camera Icon */}
           <img
-            className="sm:w-6 sm:h-6 w-4 h-4 relative"
+            className="sm:w-5 sm:h-5 w-4 h-4"
             src="/icons/camera_video.svg"
           />
-          <div className="justify-start text-gray-700 sm:text-sm text-xs font-medium font-['Poppins'] capitalize leading-tight">
-            Camera
-          </div>
-          <div className="w-6 h-6 relative">
+
+          {/* Dropdown */}
+          <div className="relative flex-1">
+            <select
+              className="w-full text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer pr-6 font-['Poppins'] capitalize"
+              defaultValue="camera"
+            >
+              <option value="camera">Camera</option>
+              <option value="camera2">Camera 2</option>
+              <option value="camera3">Camera 3</option>
+            </select>
+
+            {/* Dropdown Icon */}
             <img
-              className="w-6 h-6 left-5 relative"
+              className="w-4 h-4 absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none"
               src="/icons/arrow_drop_down.svg"
             />
           </div>
         </div>
 
         {/* Office Button */}
-        <div className="lg:w-40 lg:h-10 w-30 h-9 bg-zinc-300 rounded-3xl flex items-center px-4 gap-1">
-          <img
-            className="sm:w-6 sm:h-6 w-4 h-4 relative"
-            src="/icons/event_list.svg"
-          />
+        <div className="lg:w-40 lg:h-10 w-28 md:w-40 h-9 bg-zinc-300 rounded-3xl flex items-center px-2 sm:px-4 gap-x-2 relative">
+          {/* Office Icon */}
+          <img className="sm:w-5 sm:h-5 w-4 h-4" src="/icons/event_list.svg" />
 
-          <div className=" justify-start text-gray-700 sm:text-sm text-xs font-medium font-['Poppins'] capitalize leading-tight">
-            Office
-          </div>
-          <div className="w-6 h-6 relative">
+          {/* Dropdown */}
+          <div className="relative flex-1">
+            <select
+              className="w-full text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer pr-6 font-['Poppins'] capitalize"
+              defaultValue="office"
+            >
+              <option value="office">Office</option>
+              <option value="office2">Office 2</option>
+              <option value="office3">Office 3</option>
+            </select>
+
+            {/* Dropdown Icon */}
             <img
-              className="w-6 h-6 left-5 relative"
+              className="w-4 h-4 absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none"
               src="/icons/arrow_drop_down.svg"
             />
           </div>
@@ -181,9 +206,9 @@ const Watchlist = () => {
           </div>
 
           {/* Buttons Section */}
-          <div className="flex flex-col md:flex-row justify-between p-3 space-y-3 md:space-y-0">
+          <div className="flex flex-col md:flex-row justify-between  space-y-3 md:space-y-0">
             {/* Left Buttons */}
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 ">
               <button className="px-4 py-2 w-full sm:w-36 h-12 flex items-center justify-center bg-white border border-black border-opacity-50">
                 <img
                   className="w-4 h-4"
@@ -195,7 +220,7 @@ const Watchlist = () => {
                 </span>
               </button>
 
-              <button className="px-4 py-2 w-full sm:w-52 h-12 flex items-center justify-center bg-white border border-black border-opacity-50">
+              <button className="px-4 py-2 w-full sm:w-52 md:w-44 h-12 flex items-center justify-center bg-white border border-black border-opacity-50">
                 <img
                   className="w-4 h-4"
                   src="/icons/theaters.svg"
@@ -210,7 +235,7 @@ const Watchlist = () => {
             {/* Right Buttons */}
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
               <button
-                className="h-12 px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex  gap-2.5 overflow-hidden  items-center justify-center "
+                className="h-12 px-4 w-full  md:w-52 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex  gap-2.5  overflow-hidden  items-center justify-center "
                 onClick={() => setIsShareModalOpen(true)}
               >
                 <img className="w-6 h-6" src="/icons/share.svg" alt="Share" />
