@@ -53,16 +53,16 @@ const Navbar = () => {
 
       {/* Right Section - Buttons & Profile */}
       <div className="flex justify-start items-center gap-1 md:gap-2">
-        <div className=" hidden sm:flex px-3 py-1 md:px-4 md:py-1 lg:px-5 lg:py-1 bg-gradient-to-r from-teal-300 to-sky-400 rounded-3xl shadow-md  items-center gap-2 ">
+        <button className=" hidden sm:flex px-3 py-1 md:px-4 md:py-1 lg:px-5 lg:py-1 bg-gradient-to-r from-teal-300 to-sky-400 rounded-3xl shadow-md  items-center gap-2 ">
           <img
             className="w-2 h-3 md:w-5 md:h-5"
             src="/icons/add_circle.svg"
             alt="Add"
           />
-          <div className="text-white text-xs md:text-sm font-medium capitalize">
+          <span className="text-white text-xs md:text-sm font-medium capitalize">
             ADD
-          </div>
-        </div>
+          </span>
+        </button>
 
         {/* AI Model Section */}
         <div className="inline-flex items-center gap-1 md:gap-2">
@@ -76,11 +76,15 @@ const Navbar = () => {
               AI Model and Training
             </div>
           </div>
+
+          <button>
           <img
             className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
             src="/icons/solar.svg"
             alt="Solar"
           />
+          </button>
+
           <img
             className="w-6 h-6 md:w-7 md:h-7 lg:w-9 lg:h-9 rounded-2xl"
             src="/icons/Elipse 5.png"
@@ -97,10 +101,10 @@ const Navbar = () => {
       {/* Mobile & Medium Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-gray-900 text-white flex flex-col items-center space-y-4 py-5 lg:hidden z-50">
-          <div className="px-3 py-2 bg-gradient-to-r from-teal-300 to-sky-400 rounded-3xl shadow-md flex items-center gap-2 md:hidden">
+          <button className="px-3 py-2 bg-gradient-to-r from-teal-300 to-sky-400 rounded-3xl shadow-md flex items-center gap-2 md:hidden">
             <img className="w-5 h-5" src="/icons/add_circle.svg" alt="Add" />
-            <div className="text-white text-sm font-medium capitalize">ADD</div>
-          </div>
+            <span className="text-white text-sm font-medium capitalize">ADD</span>
+          </button>
 
           {navItems.map((item, index) => (
             <NavLink

@@ -1,8 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import AlertItem from "./AlertItem";
 
 const Watchlist = () => {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [error, setError] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(false)
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  const handleDownload = (url) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "recording.mp4";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const fetchVideos = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(API_URL);
+      setVideos(response.data);
+      setError(null); // clear previous errors
+    } catch (err) {
+      console.error("Error fetching videos:", err);
+      setError("Failed to fetch videos. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchVideos();
+  }, [API_URL]);
+
+  {loading && <p className="text-center text-sm text-gray-500">Refreshing...</p>}
+{error && <p className="text-center text-sm text-red-500">{error}</p>}
+
   return (
     <main className="p-4 sm:p-6 md:p-10 lg:p-10 w-full min-h-screen overflow-hidden bg-zinc-100 pb-20 sm:pb-10">
       <div className="flex justify-between items-center mb-4 sm:mt-20 mt-15">
@@ -19,19 +57,22 @@ const Watchlist = () => {
 
         {/* Right Side: Buttons in a row */}
         <div className="flex items-center space-x-2">
-          <div className="px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex justify-center items-center gap-2 overflow-hidden">
+          <button 
+          className="px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex justify-center items-center gap-2 overflow-hidden"
+          onClick={fetchVideos}
+          >
             <img className="w-4 h-4" src="/icons/replay.svg" />
-            <div className="text-right justify-start text-white sm:text-base text-xs font-medium font-['Poppins'] leading-snug">
+            <span className="text-right justify-start text-white sm:text-base text-xs font-medium font-['Poppins'] leading-snug">
               Refresh
-            </div>
-          </div>
+            </span>
+          </button>
 
-          <div className="px-4 py-2 bg-zinc-300 inline-flex justify-center items-center gap-2 overflow-hidden whitespace-nowrap">
+          <button className="px-4 py-2 bg-zinc-300 inline-flex justify-center items-center gap-2 overflow-hidden whitespace-nowrap">
             <img className="w-4 h-4 bg-zinc-300" src="/icons/visibility.svg" />
-            <div className="text-right justify-start text-stone-900 sm:text-base text-xs font-medium font-['Poppins'] leading-snug">
+            <span className="text-right justify-start text-stone-900 sm:text-base text-xs font-medium font-['Poppins'] leading-snug">
               Read all
-            </div>
-          </div>
+            </span>
+          </button>
         </div>
       </div>
 
@@ -43,9 +84,11 @@ const Watchlist = () => {
             className="sm:w-5 sm:h-5 w-4 h-4 relative"
             src="/icons/search.svg"
           />
-          <div className="justify-start text-gray-700 sm:text-sm text-xs font-medium font-['Poppins'] capitalize leading-tight">
-            Search Alerts...
-          </div>
+          <input
+            type="text"
+            placeholder="Search Alerts..."
+            className="bg-transparent outline-none text-gray-700 sm:text-sm text-xs font-medium font-['Poppins'] capitalize leading-tight w-full truncate placeholder:text-gray-500"
+          />
         </div>
 
         {/* Site Button */}
@@ -54,9 +97,9 @@ const Watchlist = () => {
           <img className="sm:w-6 sm:h-6 w-4 h-4" src="/icons/location_on.svg" />
 
           {/* Dropdown Container */}
-          <div className="relative flex-1">
+          <div className="relative flex-1 ">
             <select
-              className="w-full text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer pr-6 font-['Poppins'] capitalize"
+              className="w-full p-1 text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer font-['Poppins'] capitalize"
               defaultValue="Site"
             >
               <option value="site">Site</option>
@@ -83,7 +126,7 @@ const Watchlist = () => {
           {/* Dropdown */}
           <div className="relative flex-1">
             <select
-              className="w-full text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer pr-6 font-['Poppins'] capitalize"
+              className="w-full p-1 text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer  font-['Poppins'] capitalize"
               defaultValue="camera"
             >
               <option value="camera">Camera</option>
@@ -107,7 +150,7 @@ const Watchlist = () => {
           {/* Dropdown */}
           <div className="relative flex-1">
             <select
-              className="w-full text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer pr-6 font-['Poppins'] capitalize"
+              className="w-full p-1 text-gray-700 text-xs sm:text-sm font-medium bg-transparent appearance-none focus:outline-none cursor-pointer font-['Poppins'] capitalize"
               defaultValue="office"
             >
               <option value="office">Office</option>
@@ -127,10 +170,10 @@ const Watchlist = () => {
       {/* Alerts Section start hete*/}
       <div className="mt-4">
         <div className="w-48 h-6 justify-start">
-          <span class="text-gray-700 sm:text-lg text-sm font-bold font-['Poppins'] leading-relaxed">
+          <span className="text-gray-700 sm:text-lg text-sm font-bold font-['Poppins'] leading-relaxed">
             March 16th
           </span>
-          <span class="text-gray-700 sm:text-lg text-sm font-normal font-['Poppins'] leading-relaxed">
+          <span className="text-gray-700 sm:text-lg text-sm font-normal font-['Poppins'] leading-relaxed">
             {" "}
             Monday
           </span>
@@ -154,117 +197,143 @@ const Watchlist = () => {
 
       {/* Big card Start here*/}
 
-      <div className=" sm:p-5 p-3 w-full  mx-auto  bg-neutral-200 rounded-[30px]">
-        <AlertItem />
+      <div className=" sm:p-5 p-3 w-full space-y-4 mx-auto  bg-neutral-200 rounded-[30px]">
+        {/* Clickable Card */}
 
-        {/* video section is here*/}
-        <div className="overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5">
-            {/* Image Section */}
-            <div className="relative flex justify-center">
-              <div className="relative rounded-md overflow-hidden aspect-video">
-                <img
-                  src="/icons/image 20.png"
-                  alt="Camera footage"
-                  className="w-full sm:w-[500px] md:w-[600px] lg:w-[698px] h-auto object-cover"
-                />
-              </div>
+        {videos.map((video, index) => (
+          <div key={video.id}>
+            {expandedIndex !== index && (
+            <div
+              onClick={() =>
+                setExpandedIndex(expandedIndex === index ? null : index)
+              }
+              className="cursor-pointer"
+            >
+              {/* AlertItem map here */}
+
+              <AlertItem
+                thumbnail={video.thumbnailUrl}
+                date={video.uploadTime}
+                duration={video.duration}
+                description={video.description}
+                title={video.title}
+              />
             </div>
+            )}
+            {/* Expanded Section */}
+            {expandedIndex === index && (
+              <div className="overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5">
+                  {/* video Section */}
 
-            {/* Text Content */}
-            <div className="text-center sm:text-left">
-              <div className="text-gray-700 text-base font-medium font-['Poppins'] capitalize leading-snug">
-                A pedestrian and a backpack were counted at office-camera101
-                (16:58).
-              </div>
-
-              <div>
-                {/* Alert & Count Section */}
-                <div className="grid grid-cols-2 gap-2 mt-5">
-                  <div className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize">
-                    Alert
+                  <div className="relative rounded-md overflow-hidden aspect-video">
+                    <video
+                      src={video.videoUrl}
+                      controls
+                      autoPlay
+                      className="w-full sm:w-[500px] md:w-[600px] lg:w-[698px] h-auto object-cover"
+                    />
                   </div>
-                  <div className="text-gray-700 text-base font-medium font-['Poppins'] capitalize">
-                    Count people
+                  {/* Text Content */}
+                  <div className="text-center sm:text-left">
+                    <div className="text-gray-700 text-base font-medium font-['Poppins'] capitalize leading-snug">
+                      {video.title} ({video.duration}).
+                    </div>
+
+                    <div>
+                      {/* Alert & Count Section */}
+                      <div className="grid grid-cols-2 gap-2 mt-5">
+                        <div className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize">
+                          Alert
+                        </div>
+                        <div className="text-gray-700 text-base font-medium font-['Poppins'] capitalize">
+                          Count people
+                        </div>
+                      </div>
+
+                      {/* Divider */}
+                      <div className="border-b border-gray-300 my-3" />
+
+                      {/* Camera Section */}
+                      <div className="grid grid-cols-2 gap-2 mt-5">
+                        <div className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize">
+                          Camera
+                        </div>
+                        <div className="text-gray-700 text-base font-medium font-['Poppins'] capitalize">
+                          Office-camera101
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Buttons Section */}
+                <div className="flex flex-col md:flex-row justify-between  space-y-3 md:space-y-0">
+                  {/* Left Buttons */}
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 ">
+                    <button
+                      className="px-4 py-2 w-full sm:w-36 h-12 flex items-center justify-center bg-white border border-black border-opacity-50"
+                      onClick={() => handleDownload(video.videoUrl)}
+                    >
+                      <img
+                        className="w-4 h-4"
+                        src="/icons/download.svg"
+                        alt="Download"
+                      />
+                      <span className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize ml-2">
+                        Download
+                      </span>
+                    </button>
+
+                    <button 
+                    className="px-4 py-2 w-full sm:w-52 md:w-44 h-12 flex items-center justify-center bg-white border border-black border-opacity-50"
+                    onClick={() => setExpandedIndex(null)}
+                    >
+                      <img
+                        className="w-4 h-4"
+                        src="/icons/theaters.svg"
+                        alt="Theaters"
+                      />
+                      <span className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize ml-2">
+                        Open Sequence
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* Right Buttons */}
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <button
+                      className="h-12 px-4 w-full  md:w-52 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex  gap-2.5  overflow-hidden  items-center justify-center "
+                      onClick={() => setIsShareModalOpen(true)}
+                    >
+                      <img
+                        className="w-6 h-6"
+                        src="/icons/share.svg"
+                        alt="Share"
+                      />
+                      <span className="text-right justify-start text-white text-base font-medium font-['Poppins'] leading-snug">
+                        Share Recording
+                      </span>
+                    </button>
+
+                    <button
+                      className="h-12 px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex  gap-2.5 overflow-hidden  items-center justify-center "
+                      onClick={() => setIsAddTaskModalOpen(true)}
+                    >
+                      <img className="w-6 h-6" src="/icons/add.svg" alt="Add" />
+                      <span className="text-white text-base font-medium font-['Poppins'] ml-2">
+                        Add Task
+                      </span>
+                    </button>
                   </div>
                 </div>
 
                 {/* Divider */}
-                <div className="border-b border-gray-300 my-3" />
-
-                {/* Camera Section */}
-                <div className="grid grid-cols-2 gap-2 mt-5">
-                  <div className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize">
-                    Camera
-                  </div>
-                  <div className="text-gray-700 text-base font-medium font-['Poppins'] capitalize">
-                    Office-camera101
-                  </div>
-                </div>
+                <div className="w-full border-b border-gray-300 my-3" />
               </div>
-            </div>
+            )}
           </div>
-
-          {/* Buttons Section */}
-          <div className="flex flex-col md:flex-row justify-between  space-y-3 md:space-y-0">
-            {/* Left Buttons */}
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 ">
-              <button className="px-4 py-2 w-full sm:w-36 h-12 flex items-center justify-center bg-white border border-black border-opacity-50">
-                <img
-                  className="w-4 h-4"
-                  src="/icons/download.svg"
-                  alt="Download"
-                />
-                <span className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize ml-2">
-                  Download
-                </span>
-              </button>
-
-              <button className="px-4 py-2 w-full sm:w-52 md:w-44 h-12 flex items-center justify-center bg-white border border-black border-opacity-50">
-                <img
-                  className="w-4 h-4"
-                  src="/icons/theaters.svg"
-                  alt="Theaters"
-                />
-                <span className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize ml-2">
-                  Open Sequence
-                </span>
-              </button>
-            </div>
-
-            {/* Right Buttons */}
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-              <button
-                className="h-12 px-4 w-full  md:w-52 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex  gap-2.5  overflow-hidden  items-center justify-center "
-                onClick={() => setIsShareModalOpen(true)}
-              >
-                <img className="w-6 h-6" src="/icons/share.svg" alt="Share" />
-                <span className="text-right justify-start text-white text-base font-medium font-['Poppins'] leading-snug">
-                  Share Recording
-                </span>
-              </button>
-
-              <button
-                className="h-12 px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-400 inline-flex  gap-2.5 overflow-hidden  items-center justify-center "
-                onClick={() => setIsAddTaskModalOpen(true)}
-              >
-                <img className="w-6 h-6" src="/icons/add.svg" alt="Add" />
-                <span className="text-white text-base font-medium font-['Poppins'] ml-2">
-                  Add Task
-                </span>
-              </button>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="w-full border-b border-gray-300 my-3" />
-        </div>
-        <div className="w-full space-y-4">
-          <AlertItem />
-          <AlertItem />
-          <AlertItem />
-          <AlertItem />
-        </div>
+        ))}
 
         {/* Share task code start here */}
         {isShareModalOpen && (
@@ -559,43 +628,3 @@ const Watchlist = () => {
 };
 
 export default Watchlist;
-
-function AlertItem() {
-  return (
-    <div className="w-full bg-white rounded-lg sm:p-3.5 p-2 flex items-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-        {/* Image Section */}
-        <div className="flex justify-center sm:justify-start">
-          <div className="rounded-md overflow-hidden relative">
-            <img
-              src="/icons/image 19.png"
-              alt="Camera footage thumbnail"
-              className="w-full sm:w-52 h-28 rounded-2xl object-cover"
-            />
-          </div>
-        </div>
-
-        {/* Date & Time Section */}
-        <div className="space-y-2 flex flex-col items-center sm:items-start">
-          <div className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize leading-tight">
-            April 16th 2024,
-          </div>
-          <div className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize leading-tight">
-            16:59:29
-          </div>
-        </div>
-
-        {/* Description Section */}
-        <div className="lg:col-span-2 space-y-2 flex flex-col items-center sm:items-start text-center sm:text-left">
-          <div className="text-gray-700 text-base font-medium font-['Poppins'] capitalize leading-snug sm:w-auto w-full">
-            A pedestrian and a backpack were counted at office-camera101
-            (16:58).
-          </div>
-          <div className="text-gray-700 text-sm font-normal font-['Poppins'] capitalize leading-tight">
-            Count people
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}

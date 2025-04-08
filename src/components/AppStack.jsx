@@ -1,4 +1,6 @@
 import React from "react";
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
 
 const appStackData = [
   {
@@ -172,6 +174,30 @@ const appStackData = [
 ];
 
 const AppStack = () => {
+  // const [appStackData, setAppStackData] = useState([]);
+  // const [error, setError] = useState("");
+  // const [loading, setLoading] = useState(true);
+  // const API_URL = "https://your-api.com/api/appstack";
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(API_URL);
+  //       setAppStackData(response.data); // adjust based on actual response structure
+  //       setLoading(false);
+  //     } catch (err) {
+  //       setError("Failed to fetch App Stack data.");
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  // if (loading) return <div className="p-6">Loading...</div>;
+  // if (error) return <div className="p-6 text-red-500">{error}</div>;
+
+
   return (
     <div className="px-6 sm:px-8 py-10 sm:mt-20 mt-10 bg-zinc-100 min-h-screen w-full">
       {/* Header */}
